@@ -1,0 +1,33 @@
+#gameBoard {
+    width: 500px;
+    height: 500px;
+    border: 1px solid black;
+}
+
+#viporZone {
+    width: 12%;
+    height: 98%;
+    border: 1px solid green;
+    margin-top: 1%;
+}
+
+#vipor {
+    width:100%;
+    height: auto;
+}
+
+#missile {
+    visibility: hidden;
+    margin: 0;
+    padding: 0;
+    width: 40%;
+    height: auto;
+}
+
+#firedMissile {
+    visibility: hidden;
+    margin: 0;
+    padding: 0;
+    width: 40%;
+    height: auto;
+}
