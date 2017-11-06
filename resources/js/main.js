@@ -19,6 +19,10 @@ function moveViporUp() {
 };
 
 function fireMissle() {
+    let missileFired = false;
+    if (missileFired === true) {
+        return;
+    } else {
     let currentViporPositionObject = $("#vipor").position();
     let currentViporDistanceFromTop = currentViporPositionObject.top;
     let currentViporDistanceFromLeft = Number(currentViporPositionObject.left);
@@ -29,6 +33,7 @@ function fireMissle() {
     moveMissile();
     
     function moveMissile() {
+    missileFired = true;
     $("#missile").css("visibility", "hidden");
     firedMissilePosition = firedMissilePosition+1;
     $("#firedMissile").offset({top: Number(currentViporDistanceFromTop)+3});
@@ -38,9 +43,11 @@ function fireMissle() {
      setTimeout(moveMissile, 1);
     } else {
        $("#firedMissile").css("visibility", "hidden");
+
        return;
     };
-};
+  };
+ };
 };
 
 let missileCounter = 0;
