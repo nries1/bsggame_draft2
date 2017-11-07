@@ -1,70 +1,8 @@
-//All Raider Functions Here
-/*
-function sendRaiderTest() {
-    raiderNumber++;
-    let raiderPath = getRandomRaiderPath(5);
-    let raiderId = "raiderNo"+raiderNumber;
-    let raider = "<img id="+raiderId+" class='raiders' src = './resources/images/raider.jpg'>"
-    $(raiderPath).append(raider);
-    console.log(raiderId);
-    moveRaider(raiderId);
-    $("#"+raiderId).css("color", "red");
-    
-    function moveRaider(raiderId) {
-    let currentPositionObject = $("#"+raiderId).position();
-    let currentDistanceFromLeft = currentPositionObject.left;
-    let newDistanceFromLeft = Number(currentDistanceFromLeft-1);
-    $("#"+raiderId).offset({left: newDistanceFromLeft});
-    setTimeout(moveRaider("#"+raiderId), 1); 
-   }
-}
-*/
-
-// Get Random Raider Path
-function getRandomRaiderPath(numberOfPaths) {
-    let randomPathNumber = Math.floor((Math.random()*numberOfPaths)+1);
-    let randomPath = "#raiderPath"+randomPathNumber;
-    return randomPath;
-};
-// End Get Random Raider Path
-let raiderNumber = 0;
-function generateRaider() {
-    raiderNumber++;
-    let raiderId = "raiderNo"+raiderNumber;
-    let raider = "<img id="+raiderId+" class='raiders' src = './resources/images/raider.jpg'>"
-    let raiderPath = getRandomRaiderPath(5);
-    $(raiderPath).append(raider);
-    return raiderId;
-    console.log(raiderId);
-    moveRaider(raiderId);
-    
-    function moveRaider(raiderId) {
-    let currentPositionObject = $("#"+raiderId).position();
-    let currentDistanceFromLeft = currentPositionObject.left;
-    let newDistanceFromLeft = Number(currentDistanceFromLeft-10);
-    $("#"+raiderId).offset({left: newDistanceFromLeft});
-    setTimeout(moveRaider(raiderId), 100);
- };
-};
-
-// Move Raiders Function
-function moveRaider(raiderId) {
-    let currentPositionObject = $("#"+raiderId).position();
-    let currentDistanceFromLeft = currentPositionObject.left;
-    let newDistanceFromLeft = Number(currentDistanceFromLeft-10);
-    $("#"+raiderId).offset({left: newDistanceFromLeft});
-    setTimeout(moveRaider(raiderId), 100);
-}
- // End Move Raiders Function
-
-//End All Raider Functions
-
-
 
 function moveViporDown() {
     let currentPositionObject = $("#vipor").position();
     let currentDistanceFromTop = currentPositionObject.top;
-    let newDistanceFromTop = Number(currentDistanceFromTop+8);
+    let newDistanceFromTop = Number(currentDistanceFromTop+5);
     if (currentDistanceFromTop < 466) {
       $("#vipor").offset({top: newDistanceFromTop});
     }
@@ -200,7 +138,6 @@ let spaceBarActive = false;
 
 let missileCounter = 0;
 $(document).ready(function() {
-    generateRaider();
  $(document).keyup(function(event) {
     keyPressObject[event.which] = (event.type == 'keydown');
 }); 
@@ -242,6 +179,12 @@ function fireMissiles() {
      }
     };
 
+
+// Send Raiders Function
+function() sendRaiders {
+    
+};
+// End Send Raiders Function
 /*$(document).on("keydown", function(event) {
   	if (event.which === 38) {  // if user presses up arrow
      moveViporUp();

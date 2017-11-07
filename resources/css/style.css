@@ -2,6 +2,8 @@
     width: 500px;
     height: 500px;
     border: 1px solid black;
+    display: flex;
+    justify-content: space-between;
 }
 
 #viporZone {
@@ -16,7 +18,7 @@
     height: auto;
 }
 
-#missile {
+.missiles {
     visibility: hidden;
     margin: 0;
     padding: 0;
@@ -24,10 +26,29 @@
     height: auto;
 }
 
-#firedMissile {
-    visibility: hidden;
-    margin: 0;
-    padding: 0;
-    width: 40%;
-    height: auto;
+#raiderZone {
+    width: 60%;
+    height: 100%;
+    border-left: 1px solid black;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: flex-end;
+    background-color: black;
+}
+
+.raiderPath {
+    width: 100%;
+    height: 13%;
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+    background-color: white;
+    text-align: right;
+}
+
+.raiders {
+    height: 50%;
+    width: auto;
+    margin-top: 5%;
+    margin-bottom: 5%;
 }
