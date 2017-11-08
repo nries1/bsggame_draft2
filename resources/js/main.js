@@ -1,24 +1,5 @@
 //All Raider Functions Here
-/*
-function sendRaiderTest() {
-    raiderNumber++;
-    let raiderPath = getRandomRaiderPath(5);
-    let raiderId = "raiderNo"+raiderNumber;
-    let raider = "<img id="+raiderId+" class='raiders' src = './resources/images/raider.jpg'>"
-    $(raiderPath).append(raider);
-    console.log(raiderId);
-    moveRaider(raiderId);
-    $("#"+raiderId).css("color", "red");
-    
-    function moveRaider(raiderId) {
-    let currentPositionObject = $("#"+raiderId).position();
-    let currentDistanceFromLeft = currentPositionObject.left;
-    let newDistanceFromLeft = Number(currentDistanceFromLeft-1);
-    $("#"+raiderId).offset({left: newDistanceFromLeft});
-    setTimeout(moveRaider("#"+raiderId), 1); 
-   }
-}
-*/
+
 
 // Get Random Raider Path
 function getRandomRaiderPath(numberOfPaths) {
@@ -36,36 +17,45 @@ function generateRaider() {
     $(raiderPath).append(raider);
     return raiderId;
     console.log(raiderId);
-    moveRaider(raiderId);
+//    moveRaider(raiderId);
     
-    function moveRaider(raiderId) {
-    let currentPositionObject = $("#"+raiderId).position();
-    let currentDistanceFromLeft = currentPositionObject.left;
-    let newDistanceFromLeft = Number(currentDistanceFromLeft-10);
-    $("#"+raiderId).offset({left: newDistanceFromLeft});
-    setTimeout(moveRaider(raiderId), 100);
- };
+
 };
 
 // Move Raiders Function
-function moveRaider(raiderId) {
+
+function moveRaiders() {
+    $(".raiders").each(function() {
+        let currentPositionObject = $(this).position();
+        let currentDistanceFromLeft = Number(currentPositionObject.left);
+        $("#testOutput").text($(this).attr("id")+"  ||   "+currentDistanceFromLeft);
+        let raiderStartPosition = currentDistanceFromLeft;
+        if ($(this).position().left > 210) {
+            newRaiderPosition = raiderStartPosition - 1;
+            $(this).offset({left: newRaiderPosition});
+            };
+        });
+    setTimeout(moveRaiders,10);
+};
+
+/*function moveRaider(raiderId) {
     let currentPositionObject = $("#"+raiderId).position();
     let currentDistanceFromLeft = currentPositionObject.left;
     let newDistanceFromLeft = Number(currentDistanceFromLeft-10);
     $("#"+raiderId).offset({left: newDistanceFromLeft});
     setTimeout(moveRaider(raiderId), 100);
-}
+} */
  // End Move Raiders Function
 
 //End All Raider Functions
 
 
-
+// Move Vipor Functions
 function moveViporDown() {
     let currentPositionObject = $("#vipor").position();
     let currentDistanceFromTop = currentPositionObject.top;
-    let newDistanceFromTop = Number(currentDistanceFromTop+8);
-    if (currentDistanceFromTop < 466) {
+    let newDistanceFromTop = Number(currentDistanceFromTop+100);
+    if (currentDistanceFromTop < 416) {
       $("#vipor").offset({top: newDistanceFromTop});
     }
 };
@@ -73,17 +63,17 @@ function moveViporDown() {
 function moveViporUp() {
     let currentPositionObject = $("#vipor").position();
     let currentDistanceFromTop = currentPositionObject.top;
-    let newDistanceFromTop = Number(currentDistanceFromTop-5);
+    let newDistanceFromTop = Number(currentDistanceFromTop-100);
     let parentContainerDistanceFromTop = $("#viporZone").position().top
-    if (currentDistanceFromTop > Number(parentContainerDistanceFromTop + 8)) {
+    if (currentDistanceFromTop > Number(parentContainerDistanceFromTop + 50)) {
        $("#vipor").offset({top: newDistanceFromTop});
     };
 };
+// End Move Vipor Functions
 
 // Fire Missile One Function
 let missileOneFired = false;
 function fireMissleOne() {
-
     if (missileOneFired === true) {
         return;
     } else {
@@ -98,12 +88,20 @@ function fireMissleOne() {
 
     function moveMissileOne() {
     missileOneFired = true;
+    let hitRaider = false;
     $("#missile").css("visibility", "hidden");
     firedMissilePosition = firedMissilePosition+1;
     $("#firedMissile").offset({top: Number(currentViporDistanceFromTop)+3});
     $("#firedMissile").css("visibility", "visible");
     $("#firedMissile").offset({left: firedMissilePosition});
-    if(firedMissilePosition < 475) {
+    $(".raiders").each(function() {
+      if(Math.abs(Math.floor($(this).position().left) - Math.floor($("#firedMissile").position().left)) < 10 &&
+         Math.abs(Math.floor($(this).position().top) - Math.floor($("#firedMissile").position().top)) < 50) {
+         $(this).remove();
+         hitRaider = true;
+      };
+    });
+    if(firedMissilePosition < 475 && hitRaider !== true) {
      setTimeout(moveMissileOne, 1);
     } else {
        $("#firedMissile").css("visibility", "hidden");
@@ -134,12 +132,20 @@ function fireMissileTwo() {
 
     function moveMissileTwo() {
     missileTwoFired = true;
+    let hitRaider = false;
     $("#missile2").css("visibility", "hidden");
     firedMissilePosition = firedMissilePosition+1;
     $("#firedMissile2").offset({top: Number(currentViporDistanceFromTop)+3});
     $("#firedMissile2").css("visibility", "visible");
     $("#firedMissile2").offset({left: firedMissilePosition});
-    if(firedMissilePosition < 475) {
+    $(".raiders").each(function() {
+      if(Math.floor($(this).position().left) === Math.floor($("#firedMissile2").position().left) &&
+         Math.abs(Math.floor($(this).position().top) - Math.floor($("#firedMissile2").position().top)) < 50) {
+         $(this).remove();
+          hitRaider = true;
+      };
+    });
+    if(firedMissilePosition < 475 && hitRaider !== true) {
      setTimeout(moveMissileTwo, 1);
     } else {
        $("#firedMissile2").css("visibility", "hidden");
@@ -169,12 +175,20 @@ function fireMissileThree() {
 
     function moveMissileThree() {
     missileThreeFired = true;
+    let hitRaider = false;
     $("#missile3").css("visibility", "hidden");
     firedMissilePosition = firedMissilePosition+1;
     $("#firedMissile3").offset({top: Number(currentViporDistanceFromTop)+3});
     $("#firedMissile3").css("visibility", "visible");
     $("#firedMissile3").offset({left: firedMissilePosition});
-    if(firedMissilePosition < 475) {
+    $(".raiders").each(function() {
+      if(Math.floor($(this).position().left) === Math.floor($("#firedMissile3").position().left) &&
+         Math.abs(Math.floor($(this).position().top) - Math.floor($("#firedMissile3").position().top)) < 50) {
+         $(this).remove();
+         hitRaider = true;
+      };
+    });
+    if(firedMissilePosition < 475 && hitRaider !== true) {
      setTimeout(moveMissileThree, 1);
     } else {
        $("#firedMissile3").css("visibility", "hidden");
@@ -186,9 +200,7 @@ function fireMissileThree() {
 };
 // End Fire Missile Three Function
 
-//let keyPressArray = [{name: upArrow, key: 38, fx: 'moveViporUp()', 38: false},
-//                     {name: upArrow, key: 40, fx: 'moveViporDown()', 40: false},
-//                     {name: upArrow, key: 38, fx: 'FireMissiles()', 32: false}];
+// Key Down Functions and Globals
 let keyPressObject = {38: false, 40: false, 32: false}
 let functionsObject = {38: 'moveViporUp()', 40: 'moveViporDown()', 32: 'fireMissiles()'};
 let upArrow = 38;
@@ -199,8 +211,14 @@ let spaceBar = 32;
 let spaceBarActive = false;
 
 let missileCounter = 0;
+
+// Document.ready Functions
 $(document).ready(function() {
-    generateRaider();
+    setInterval(generateRaider, 2000);
+    moveRaiders();
+    let currentVipPosition = $("#vipor").position().top;
+    let startVipPosition =Number(currentVipPosition + 35);
+    $("#vipor").offset({top: startVipPosition});
  $(document).keyup(function(event) {
     keyPressObject[event.which] = (event.type == 'keydown');
 }); 
@@ -226,6 +244,8 @@ $(document).keydown(function(event) {
     };
 });
 });
+// End Document.ready Functions
+
 function fireMissiles() {
      missileCounter++;
      if (missileCounter > 3) {
@@ -241,31 +261,4 @@ function fireMissiles() {
          fireMissileThree();
      }
     };
-
-/*$(document).on("keydown", function(event) {
-  	if (event.which === 38) {  // if user presses up arrow
-     moveViporUp();
-    } else
-    if (event.which === 40) {  // if user presses down arrow
-     moveViporDown();
-  	} else
-    if (event.which === 32) {  // if user presses space bar
-    fireMissiles();
-    function fireMissiles() {
-     missileCounter++;
-     if (missileCounter > 3) {
-         missileCounter = 1;
-     }
-     console.log(missileCounter);
-     if (missileCounter === 1) {
-         fireMissleOne();
-     } else
-     if (missileCounter === 2) {
-         fireMissileTwo();
-     } else
-     if (missileCounter === 3) {
-         fireMissileThree();
-     }
-    };
-     };
-    }); */
+// End Keydown Functions and Globals
