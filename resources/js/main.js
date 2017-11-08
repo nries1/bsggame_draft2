@@ -139,7 +139,7 @@ function fireMissileTwo() {
     $("#firedMissile2").css("visibility", "visible");
     $("#firedMissile2").offset({left: firedMissilePosition});
     $(".raiders").each(function() {
-      if(Math.floor($(this).position().left) === Math.floor($("#firedMissile2").position().left) &&
+      if(Math.abs(Math.floor($(this).position().left) - Math.floor($("#firedMissile").position().left)) &&
          Math.abs(Math.floor($(this).position().top) - Math.floor($("#firedMissile2").position().top)) < 50) {
          $(this).remove();
           hitRaider = true;
@@ -182,7 +182,7 @@ function fireMissileThree() {
     $("#firedMissile3").css("visibility", "visible");
     $("#firedMissile3").offset({left: firedMissilePosition});
     $(".raiders").each(function() {
-      if(Math.floor($(this).position().left) === Math.floor($("#firedMissile3").position().left) &&
+      if(Math.abs(Math.floor($(this).position().left) - Math.floor($("#firedMissile").position().left)) &&
          Math.abs(Math.floor($(this).position().top) - Math.floor($("#firedMissile3").position().top)) < 50) {
          $(this).remove();
          hitRaider = true;
